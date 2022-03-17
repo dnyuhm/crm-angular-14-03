@@ -1,13 +1,20 @@
-<app-template-full-width [title]="myTitle">
-  <app-table-light [headers]="headers" *ngIf="collection$ | async as collection">
+<app-template-full-width [title]="myTitle" *ngIf="collection$ | async as collection">
+  <!-- <pre>{{ collection | json }}</pre> -->
+  <app-table-light [headers]="headers">
     <tr *ngFor="let item of collection">
-      <td>{{ item.typePresta }}</td>
+      <td>{{ item.typePresta | uppercase }}</td>
       <td>{{ item.client }}</td>
       <td>{{ item.nbJours }}</td>
-      <td>{{ item.tjmHt }}</td>
-      <td>{{ item.nbJours | total : item.tjmHt }}</td>
-      <td>{{ item.nbJours | total : item.tjmHt : item.tva }}</td>
-      <td>{{ item.state }}</td>
+      <td>{{ item.tjmHt | currency }}</td>
+      <td>{{ item.nbJours | total : item.tjmHt | currency }}</td>
+      <td>{{ item.nbJours | total : item.tjmHt : item.tva | currency }}</td>
+      <td>
+        <select (change)="changeState(item, $event)">
+          <option *ngFor="let state of states" [selected]="state === item.state" [value]="state">
+            {{ state }}
+          </option>
+        </select>
+      </td>
     </tr>
   </app-table-light>
 </app-template-full-width>

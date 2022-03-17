@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StateOrder } from 'src/app/core/enums/state-order';
 import { Order } from 'src/app/core/models/order';
 import { OrdersService } from '../../services/orders.service';
 
@@ -9,12 +10,15 @@ import { OrdersService } from '../../services/orders.service';
   styleUrls: ['./page-list-orders.component.scss'],
 })
 export class PageListOrdersComponent {
+  public states: string[];
   public myTitle: string;
-  public headers: string[];
   public collection$: Observable<Order[]>;
+  public headers: string[];
 
   constructor(private ordersService: OrdersService) {
+    this.states = Object.values(StateOrder);
     this.myTitle = 'my orders list';
+    this.collection$ = this.ordersService.collection$;
     this.headers = [
       'Type',
       'Client',
@@ -24,8 +28,13 @@ export class PageListOrdersComponent {
       'TOTAL TTC',
       'STATE',
     ];
+  }
 
-    this.collection$ = this.ordersService.collection$;
+  public changeState(item: Order, event: any): void {
+    const state = event.target.value;
+    this.ordersService
+      .changeState(item, state)
+      .subscribe((data) => Object.assign(item, data));
   }
 
   // public total(val: number, coef: number, tva?: number): number {
