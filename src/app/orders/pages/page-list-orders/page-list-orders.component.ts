@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Order } from 'src/app/core/models/order';
 import { OrdersService } from '../../services/orders.service';
 
@@ -10,7 +11,7 @@ import { OrdersService } from '../../services/orders.service';
 export class PageListOrdersComponent {
   public myTitle: string;
   public headers: string[];
-  public collection!: Order[];
+  public collection$: Observable<Order[]>;
 
   constructor(private ordersService: OrdersService) {
     this.myTitle = 'my orders list';
@@ -24,8 +25,12 @@ export class PageListOrdersComponent {
       'STATE',
     ];
 
-    this.ordersService.collection$.subscribe(
-      (data) => (this.collection = data)
-    );
+    this.collection$ = this.ordersService.collection$;
   }
+
+  // public total(val: number, coef: number, tva?: number): number {
+  //   console.log('total called');
+  //   if (tva) return val * coef * (1 + tva / 100);
+  //   return val * coef;
+  // }
 }
