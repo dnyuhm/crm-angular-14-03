@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Order } from 'src/app/core/models/order';
 import { OrdersService } from '../../services/orders.service';
 
@@ -7,7 +7,7 @@ import { OrdersService } from '../../services/orders.service';
   templateUrl: './page-list-orders.component.html',
   styleUrls: ['./page-list-orders.component.scss'],
 })
-export class PageListOrdersComponent implements OnInit {
+export class PageListOrdersComponent {
   public myTitle: string;
   public headers: string[];
   public collection!: Order[];
@@ -28,6 +28,4 @@ export class PageListOrdersComponent implements OnInit {
       (data) => (this.collection = data)
     );
   }
-
-  ngOnInit(): void {}
 }
