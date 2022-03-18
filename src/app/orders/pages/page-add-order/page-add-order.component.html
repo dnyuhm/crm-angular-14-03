@@ -1,3 +1,3 @@
 <app-template-container title="add order">
-  <app-form-order [init]="item"></app-form-order>
+  <app-form-order [init]="item" (submitted)="action($event)"></app-form-order>
 </app-template-container>
