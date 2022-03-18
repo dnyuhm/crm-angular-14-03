@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateOrder } from 'src/app/core/enums/state-order';
 import { Order } from 'src/app/core/models/order';
 
@@ -21,8 +21,11 @@ export class FormOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      typePresta: [this.init.typePresta],
-      client: [this.init.client],
+      typePresta: [this.init.typePresta, Validators.required],
+      client: [
+        this.init.client,
+        [Validators.required, Validators.minLength(2)],
+      ],
       nbJours: [this.init.nbJours],
       tjmHt: [this.init.tjmHt],
       tva: [this.init.tva],

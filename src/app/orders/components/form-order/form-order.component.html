@@ -3,13 +3,17 @@
   <div class="form-group">
     <label for="typePresta">type</label>
     <input type="text" class="form-control" id="typePresta" formControlName="typePresta">
-
+    <div class="alert alert-danger" *ngIf="form.controls['typePresta'].invalid && form.controls['typePresta'].touched">
+      champ invalide
+    </div>
   </div>
 
   <div class="form-group">
     <label for="client">client</label>
     <input type="text" class="form-control" id="client" formControlName="client">
-
+    <div class="alert alert-danger" *ngIf="form.controls['client'].invalid && form.controls['client'].touched">
+      champ invalide
+    </div>
   </div>
 
   <div class="form-group">
@@ -39,5 +43,5 @@
     <textarea class="form-control" id="comment" formControlName="comment"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Submit</button>
 </form>
